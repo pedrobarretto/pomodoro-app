@@ -8,7 +8,8 @@ export function Countdown() {
     resetCountdown, 
     startCountdown, 
     minutes, 
-    seconds
+    seconds,
+    startBreakTime
   } = useCountdown();
 
   const [minuteLeft, minuteRight] = String(minutes).padStart(2, '0').split('');
@@ -28,7 +29,7 @@ export function Countdown() {
       </View>
 
       { hasFinished ? (
-        <Button disabled title='Ciclo encerrado' />
+        <Button onPress={startBreakTime} title='Iniciar descanso' />
       ) : (
         <>
           { isActive ? (

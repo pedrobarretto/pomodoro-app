@@ -11,6 +11,7 @@ interface CountdownContextData {
   seconds: number;
   resetCountdown: () => void;
   startCountdown: () => void;
+  startBreakTime: () => void;
 }
 
 let countdownTimeout: NodeJS.Timeout;
@@ -18,17 +19,9 @@ let countdownTimeout: NodeJS.Timeout;
 export const CountdownContext = createContext({} as CountdownContextData)
 
 export function CountdownProvider({ children }: CountdownProviderProps) {
-  const [time, setTime] = useState(0.1 * 15000);
+  const [time, setTime] = useState(0.1 * 60);
   const [isActive, setIsActive] = useState(false);
   const [hasFinished, setHasFinished] = useState(false);
-
-  useEffect(() => {
-    window.onbeforeunload = () => {
-      if (isActive) {
-        return 'Você perderá o progresso do countdown até aqui, tem certeza?'
-      }
-    };
-  }, [isActive])
 
   useEffect(() => {
     if (isActive && time > 0) {
@@ -48,7 +41,14 @@ export function CountdownProvider({ children }: CountdownProviderProps) {
   function resetCountdown() {
     clearTimeout(countdownTimeout);
     setIsActive(false);
-    setTime(0.1 * 15000);
+    setTime(0.1 * 60);
+    setHasFinished(false);
+  }
+
+  function startBreakTime() {
+    clearTimeout(countdownTimeout);
+    setIsActive(true);
+    setTime(0.1 * 100);
     setHasFinished(false);
   }
 
@@ -63,6 +63,7 @@ export function CountdownProvider({ children }: CountdownProviderProps) {
       startCountdown,
       minutes,
       seconds,
+      startBreakTime
     }}>
       {children}
     </CountdownContext.Provider>
