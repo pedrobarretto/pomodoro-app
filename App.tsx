@@ -1,12 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Countdown } from './components/Countdown';
+import { CountdownProvider } from './contexts/CountdownContext';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <CountdownProvider>
+      <View style={styles.container}>
+        <Countdown />
+      </View>
+    </CountdownProvider>
   );
 }
 
