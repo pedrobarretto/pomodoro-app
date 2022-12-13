@@ -19,16 +19,17 @@ export function Countdown() {
   const [secondLeft, secondRight] = String(seconds).padStart(2, '0').split('');
   return (
     <View>
-      <Tomato height={500} width={500} fill={"#FF3232"}/>
-      <View style={styles.container}>
+      <View style={styles.tomato}>
         <View style={styles.container}>
-          <Text style={styles.number}>{minuteLeft}</Text>
-          <Text style={styles.number}>{minuteRight}</Text>
-        </View>
-        <Text style={styles.number}>:</Text>
-        <View style={styles.container}>
-          <Text style={styles.number}>{secondLeft}</Text>
-          <Text style={styles.number}>{secondRight}</Text>
+          <View style={styles.container}>
+            <Text style={styles.number}>{minuteLeft}</Text>
+            <Text style={styles.number}>{minuteRight}</Text>
+          </View>
+          <Text style={styles.number}>:</Text>
+          <View style={styles.container}>
+            <Text style={styles.number}>{secondLeft}</Text>
+            <Text style={styles.number}>{secondRight}</Text>
+          </View>
         </View>
       </View>
 
@@ -45,6 +46,16 @@ export function Countdown() {
 }
 
 const styles = StyleSheet.create({
+  tomato: {
+    borderRadius: 315 / 2,
+    backgroundColor: '#FF3232',
+    height: 315,
+    width: 315,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20
+  },
   container: {
     display: 'flex',
     flexDirection: 'row',
@@ -52,6 +63,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   number: {
-    fontSize: 45
+    fontSize: 45,
+    color: 'white'
+  },
+  button: {
+    backgroundColor: 'white',
+    color: '#FF6565',
+    width: 170,
+    padding: 15,
+    marginBottom: 15
   }
 });
