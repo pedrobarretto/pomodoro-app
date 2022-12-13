@@ -1,21 +1,25 @@
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, Image } from 'react-native';
 import { useCountdown } from '../hooks/useCountdown';
+import { BREAK_CICLE, PRIMAY_CICLE } from '../utils/times';
+import Tomato from './images/tomato.svg';
+import { Loader } from './Loader/Loader';
 
 export function Countdown() {
   const { 
-    isActive, 
+    isActive,
     hasFinished,
-    resetCountdown, 
-    startCountdown, 
-    minutes, 
+    resetCountdown,
+    startCountdown,
+    minutes,
     seconds,
-    startBreakTime
+    startBreakTime,
   } = useCountdown();
 
   const [minuteLeft, minuteRight] = String(minutes).padStart(2, '0').split('');
   const [secondLeft, secondRight] = String(seconds).padStart(2, '0').split('');
   return (
     <View>
+      <Tomato height={500} width={500} fill={"#FF3232"}/>
       <View style={styles.container}>
         <View style={styles.container}>
           <Text style={styles.number}>{minuteLeft}</Text>
@@ -28,15 +32,12 @@ export function Countdown() {
         </View>
       </View>
 
-      { hasFinished ? (
-        <Button onPress={startBreakTime} title='Iniciar descanso' />
+      { isActive ? (
+        <Button onPress={resetCountdown} title='Abandonar ciclo' />
       ) : (
         <>
-          { isActive ? (
-            <Button onPress={resetCountdown} title='Abandonar ciclo' />
-          ) : (
-            <Button onPress={startCountdown} title='Iniciar um ciclo'/>
-          ) }
+          <Button onPress={startCountdown} title='Iniciar um ciclo'/>
+          <Button onPress={startBreakTime} title='Iniciar descanso'/>
         </>
       ) }
     </View>

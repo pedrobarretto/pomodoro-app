@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
+import { BREAK_CICLE, PRIMAY_CICLE } from '../utils/times';
 
 interface CountdownProviderProps {
   children: ReactNode;
@@ -19,7 +20,7 @@ let countdownTimeout: NodeJS.Timeout;
 export const CountdownContext = createContext({} as CountdownContextData)
 
 export function CountdownProvider({ children }: CountdownProviderProps) {
-  const [time, setTime] = useState(0.1 * 60);
+  const [time, setTime] = useState(PRIMAY_CICLE);
   const [isActive, setIsActive] = useState(false);
   const [hasFinished, setHasFinished] = useState(false);
 
@@ -35,21 +36,20 @@ export function CountdownProvider({ children }: CountdownProviderProps) {
   }, [isActive, time]);
 
   function startCountdown() {
+    setTime(PRIMAY_CICLE);
     setIsActive(true);
   }
 
   function resetCountdown() {
     clearTimeout(countdownTimeout);
     setIsActive(false);
-    setTime(0.1 * 60);
+    setTime(PRIMAY_CICLE);
     setHasFinished(false);
   }
 
   function startBreakTime() {
-    clearTimeout(countdownTimeout);
+    setTime(BREAK_CICLE);
     setIsActive(true);
-    setTime(0.1 * 100);
-    setHasFinished(false);
   }
 
   const minutes = Math.floor(time / 60);
@@ -63,7 +63,7 @@ export function CountdownProvider({ children }: CountdownProviderProps) {
       startCountdown,
       minutes,
       seconds,
-      startBreakTime
+      startBreakTime,
     }}>
       {children}
     </CountdownContext.Provider>
