@@ -1,13 +1,10 @@
-import { View, Text, Button, StyleSheet, Image } from 'react-native';
-import { useCountdown } from '../hooks/useCountdown';
-import { BREAK_CICLE, PRIMAY_CICLE } from '../utils/times';
-import Tomato from './images/tomato.svg';
-import { Loader } from './Loader/Loader';
+import { View, Text, StyleSheet } from 'react-native';
+import { useCountdown } from '../../hooks';
+import { Button } from '../index';
 
 export function Countdown() {
   const { 
     isActive,
-    hasFinished,
     resetCountdown,
     startCountdown,
     minutes,
@@ -20,6 +17,8 @@ export function Countdown() {
   return (
     <View>
       <View style={styles.tomato}>
+        <View style={styles.leafX} />
+        <View style={styles.leafY} />
         <View style={styles.container}>
           <View style={styles.container}>
             <Text style={styles.number}>{minuteLeft}</Text>
@@ -66,11 +65,30 @@ const styles = StyleSheet.create({
     fontSize: 45,
     color: 'white'
   },
-  button: {
-    backgroundColor: 'white',
-    color: '#FF6565',
-    width: 170,
-    padding: 15,
-    marginBottom: 15
+  leafX: {
+    width: 60,
+    height: 30,
+    backgroundColor: 'green',
+    borderRadius: 50,
+    transform: [
+      { scaleX: 2 },
+      { rotateX: '45deg' },
+      { rotateZ: '45deg' }
+    ],
+    position: 'absolute',
+    bottom: 290,
+  },
+  leafY: {
+    width: 60,
+    height: 30,
+    backgroundColor: 'green',
+    borderRadius: 50,
+    transform: [
+      { scaleX: 2 },
+      { rotateX: '-45deg' },
+      { rotateZ: '-45deg' }
+    ],
+    position: 'absolute',
+    bottom: 290,
   }
 });

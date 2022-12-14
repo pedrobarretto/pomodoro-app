@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Countdown } from './components/Countdown';
+import { Countdown } from './components';
 import { CountdownProvider } from './contexts/CountdownContext';
 
 export default function App() {
